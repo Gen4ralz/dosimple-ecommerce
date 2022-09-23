@@ -15,7 +15,7 @@ app.get('/', (req, res) => {
 });
 
 //user routes
-app.use(userRoutes);
+app.use('/api', userRoutes);
 
 const port = env.PORT || 5000;
 app.listen(port, () => {
