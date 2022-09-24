@@ -1,7 +1,7 @@
 function App() {
   return (
-    <div>
-      <header></header>
+    <div className="bg-black">
+      <header className="text-white">Hello react App!</header>
     </div>
   );
 }
