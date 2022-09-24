@@ -20,9 +20,6 @@ module.exports.loginValidations = [
     .normalizeEmail()
     .trim()
     .escape()
-    .withMessage('Email is required'),
-  body('password')
-    .not()
-    .isEmpty()
-    .withMessage('Password is required'),
+    .withMessage('email is required'),
+  body('password').not().isEmpty().withMessage('password is required'),
 ];

@@ -28,7 +28,7 @@ module.exports.register = async (req, res) => {
           .json({ msg: 'Your account has been created!', token });
       } else {
         return res
-          .status(401)
+          .status(400)
           .json({ errors: [{ msg: `${email} is already taken` }] });
       }
     } catch (error) {
@@ -58,19 +58,20 @@ module.exports.login = async (req, res) => {
             return res.status(201).json({ token, isAdmin: false });
           }
         } else {
-          return res
-            .status(401)
-            .json({ errors: [{ msg: 'password not matched!' }] });
+          return res.status(400).json({
+            errors: [{ msg: 'password not matched!', param: 'password' }],
+          });
         }
       } else {
         return res
-          .status(401)
+          .status(400)
           .json({ errors: [{ msg: `${email} is not found!` }] });
       }
     } catch (error) {
       return res.status(500).json('Server internal error!');
     }
   } else {
+    //validations failed
     return res.status(400).json({ errors: errors.array() });
   }
 };
