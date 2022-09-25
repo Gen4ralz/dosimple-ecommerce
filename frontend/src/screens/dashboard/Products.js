@@ -1,11 +1,7 @@
-import Sidebar from '../../components/Sidebar';
+import Wrapper from './Wrapper';
 
 const Products = () => {
-  return (
-  <>
-  <Sidebar />
-  </>
-  )
+  return <Wrapper>Hello World!</Wrapper>;
 };
 
 export default Products;
