@@ -32,7 +32,8 @@ const AdminLogin = () => {
       dispatch(setAdminToken(response?.data?.token));
       navigate('/dashboard/products');
     }
-  }, [dispatch, response?.data?.token, response.isSuccess]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [response.isSuccess]);
   return (
     <div className="bg-blackdark h-screen flex justify-center items-center">
       <form
