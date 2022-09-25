@@ -1,9 +1,11 @@
+import Sidebar from '../../components/Sidebar';
+
 const Products = () => {
   return (
-    <div>
-      <h1>Products Items</h1>
-    </div>
-  );
+  <>
+  <Sidebar />
+  </>
+  )
 };
 
 export default Products;
