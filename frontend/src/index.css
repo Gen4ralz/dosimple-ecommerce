@@ -7,9 +7,12 @@
     @apply bg-gray-900 px-4 py-3 capitalize font-medium rounded-md;
   }
   .btn-indigo {
-    @apply bg-indigo-600 text-white capitalize font-medium px-4 py-3 rounded;
+    @apply bg-indigo-600 text-white capitalize font-medium px-4 py-3 rounded cursor-pointer hover:bg-indigo-800 transition-all;
   }
   .form-control {
     @apply bg-gray-900 p-3 rounded outline-none w-full;
+  }
+  .alert-danger {
+    @apply text-red-700 text-sm font-medium;
   }
 }
