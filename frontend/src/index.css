@@ -13,6 +13,9 @@
     @apply bg-gray-900 p-3 rounded outline-none w-full;
   }
   .alert-danger {
-    @apply text-red-700 text-sm font-medium;
+    @apply text-rose-700 text-sm font-medium  border-l-4 border-rose-600 bg-rose-100 p-3 rounded;
+  }
+  .alert-success {
+    @apply text-indigo-700 text-sm font-medium bg-indigo-100 p-3 rounded border-l-4 border-indigo-600;
   }
 }

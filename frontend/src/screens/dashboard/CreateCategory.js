@@ -1,13 +1,16 @@
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import ScreenHeader from '../../components/ScreenHeader';
+import { setSuccess } from '../../store/reducers/globalReducer';
 import { useCreateMutation } from '../../store/services/categoryService';
 import Wrapper from './Wrapper';
 
 const CreateCategory = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [state, setState] = useState();
+  const [state, setState] = useState('');
   const [saveCategory, data] = useCreateMutation();
   const errors = data?.error?.data?.errors ? data?.error?.data?.errors : [];
   const submitCategoryHandler = (e) => {
@@ -16,9 +19,10 @@ const CreateCategory = () => {
   };
   useEffect(() => {
     if (data?.isSuccess) {
+      dispatch(setSuccess(data?.data?.message));
       navigate('/dashboard/categories');
     }
-  }, [data?.isSuccess, navigate]);
+  }, [data?.data?.message, data?.isSuccess, dispatch, navigate]);
   return (
     <Wrapper>
       <ScreenHeader>
@@ -39,9 +43,9 @@ const CreateCategory = () => {
           <input
             type="text"
             placeholder="Category Name..."
-            name=""
+            name="category"
             className="form-control"
-            value={state}
+            value={state.name}
             onChange={(e) => setState(e.target.value)}
           />
         </div>

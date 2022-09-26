@@ -9,7 +9,7 @@ class Category {
       const exist = await CategoryModel.findOne({ name });
       if (!exist) {
         await CategoryModel.create({ name });
-        return res.status(201).json({ message: 'category has created!' });
+        return res.status(201).json({ message: 'Your category has created!' });
       } else {
         return res
           .status(401)
