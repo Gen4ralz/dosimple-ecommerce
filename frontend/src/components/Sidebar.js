@@ -3,6 +3,7 @@ import { ListBulletIcon } from '@heroicons/react/24/outline';
 import { ShoppingBagIcon } from '@heroicons/react/24/outline';
 import { UserGroupIcon } from '@heroicons/react/24/outline';
 import { XMarkIcon } from '@heroicons/react/24/outline';
+import { ChartBarIcon } from '@heroicons/react/24/outline';
 
 const Sidebar = ({ side, closeSidebar }) => {
   return (
@@ -24,15 +25,21 @@ const Sidebar = ({ side, closeSidebar }) => {
           </Link>
         </li>
         <li className="px-4 py-3 flex items-center text-white  hover:bg-gray-600 cursor-pointer transition-all">
-          <Link to="/dashboard/products">
+          <Link to="/dashboard/orders">
             <ShoppingBagIcon className="h-6 w-6 text-white mr-2 inline-block"></ShoppingBagIcon>
             Orders
           </Link>
         </li>
         <li className="px-4 py-3 flex items-center text-white  hover:bg-gray-600 cursor-pointer transition-all">
-          <Link to="/dashboard/products">
+          <Link to="/dashboard/customers">
             <UserGroupIcon className="h-6 w-6 text-white mr-2 inline-block"></UserGroupIcon>
             Customers
+          </Link>
+        </li>
+        <li className="px-4 py-3 flex items-center text-white  hover:bg-gray-600 cursor-pointer transition-all">
+          <Link to="/dashboard/categories">
+            <ChartBarIcon className="h-6 w-6 text-white mr-2 inline-block"></ChartBarIcon>
+            Categories
           </Link>
         </li>
       </ul>
