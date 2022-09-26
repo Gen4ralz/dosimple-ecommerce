@@ -22,7 +22,8 @@ const CreateCategory = () => {
       dispatch(setSuccess(data?.data?.message));
       navigate('/dashboard/categories');
     }
-  }, [data?.data?.message, data?.isSuccess, dispatch, navigate]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data?.isSuccess]);
   return (
     <Wrapper>
       <ScreenHeader>

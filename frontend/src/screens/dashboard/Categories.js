@@ -1,19 +1,21 @@
+import { useEffect } from 'react';
 import { PlusIcon } from '@heroicons/react/24/outline';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import ScreenHeader from '../../components/ScreenHeader';
 import Wrapper from './Wrapper';
 import { clearMessage } from '../../store/reducers/globalReducer';
-import { useEffect } from 'react';
 
 const Categories = () => {
   const { success } = useSelector((state) => state.globalReducer);
   const dispatch = useDispatch();
+
   useEffect(() => {
     return () => {
       dispatch(clearMessage());
     };
-  }, [dispatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Wrapper>

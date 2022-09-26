@@ -13,7 +13,7 @@ class Category {
       } else {
         return res
           .status(401)
-          .json({ errors: [{ msg: `${name} is already exist` }] });
+          .json({ errors: [{ msg: `${name} category is already exist` }] });
       }
     } else {
       return res.status(401).json({ errors: errors.array() });
