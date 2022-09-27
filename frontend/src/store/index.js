@@ -11,6 +11,8 @@ const Store = configureStore({
     authReducer: authReducer,
     globalReducer: globalReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat([categoryService.middleware]),
 });
 
 export default Store;
