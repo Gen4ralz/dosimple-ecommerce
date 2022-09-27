@@ -7,14 +7,17 @@ import Wrapper from './Wrapper';
 import { clearMessage } from '../../store/reducers/globalReducer';
 import { useGetQuery } from '../../store/services/categoryService';
 import Spinner from '../../components/Spinner';
+import Pagination from '../../components/Pagination';
 
 const Categories = () => {
-  const { page } = useParams();
+  let { page } = useParams();
+  if (!page) {
+    page = 1;
+  }
   console.log(page);
   const { success } = useSelector((state) => state.globalReducer);
   const dispatch = useDispatch();
-  const { data = [], isLoading } = useGetQuery(page ? page : 1);
-  console.log(data, isLoading);
+  const { data = [], isFetching } = useGetQuery(page);
 
   useEffect(() => {
     return () => {
@@ -31,36 +34,46 @@ const Categories = () => {
         </Link>
       </ScreenHeader>
       {success && <div className="alert-success mb-4">{success}</div>}
-      {isLoading ? (
+      {isFetching ? (
         <Spinner />
       ) : (
         data?.categories?.length > 0 && (
-          <div>
-            <table className="w-full bg-gray-900 rounded-md">
-              <thead>
-                <tr className="border-b border-gray-800 text-left">
-                  <th className="p-3 uppercase text-sm font-medium">name</th>
-                  <th className="p-3 uppercase text-sm font-medium">edit</th>
-                  <th className="p-3 uppercase text-sm font-medium">delete</th>
-                </tr>
-              </thead>
-              <tbody>
-                {data?.categories?.map((category) => (
-                  <tr key={category._id} className="odd:bg-gray-800">
-                    <td className="p-3 capitalize text-sm font-normal text-gray-400">
-                      {category.name}
-                    </td>
-                    <td className="p-3 capitalize text-sm font-normal text-gray-400">
-                      <button>edit</button>
-                    </td>
-                    <td className="p-3 capitalize text-sm font-normal text-gray-400">
-                      <button>delete</button>
-                    </td>
+          <>
+            <div>
+              <table className="w-full bg-gray-900 rounded-md">
+                <thead>
+                  <tr className="border-b border-gray-800 text-left">
+                    <th className="p-3 uppercase text-sm font-medium">name</th>
+                    <th className="p-3 uppercase text-sm font-medium">edit</th>
+                    <th className="p-3 uppercase text-sm font-medium">
+                      delete
+                    </th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                </thead>
+                <tbody>
+                  {data?.categories?.map((category) => (
+                    <tr key={category._id} className="odd:bg-gray-800">
+                      <td className="p-3 capitalize text-sm font-normal text-gray-400">
+                        {category.name}
+                      </td>
+                      <td className="p-3 capitalize text-sm font-normal text-gray-400">
+                        <button>edit</button>
+                      </td>
+                      <td className="p-3 capitalize text-sm font-normal text-gray-400">
+                        <button>delete</button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <Pagination
+              page={parseInt(page)}
+              perPage={data.perPage}
+              count={data.count}
+              path="dashboard/categories"
+            />
+          </>
         )
       )}
     </Wrapper>
