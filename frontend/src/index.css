@@ -1,12 +1,10 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import './styles/buttons.css';
+@import './styles/form.css';
 @import 'tailwindcss/utilities';
 
 @layer components {
-  .form-control {
-    @apply bg-gray-900 p-3 rounded outline-none w-full;
-  }
   .alert-danger {
     @apply text-rose-700 text-sm font-medium  border-l-4 border-rose-600 bg-rose-100 p-3 rounded;
   }
@@ -16,4 +14,5 @@
   .pagination-link {
     @apply border border-gray-800 text-white text-sm font-medium block py-2 px-4 bg-gray-900;
   }
+
 }

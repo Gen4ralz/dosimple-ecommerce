@@ -15,7 +15,7 @@ const Wrapper = ({ children }) => {
       <Sidebar side={side} closeSidebar={closeSidebar} />
       <AdminNav openSidebar={openSidebar} />
       <section className="ml-0 sm:ml-56 bg-gray-900 min-h-screen pt-28 px-4">
-        <div className="text-white bg-gray-800 p-4">{children}</div>
+        <div className="text-white bg-gray-800 px-4 py-6">{children}</div>
       </section>
     </>
   );
