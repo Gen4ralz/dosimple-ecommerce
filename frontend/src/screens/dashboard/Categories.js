@@ -4,8 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import ScreenHeader from '../../components/ScreenHeader';
 import Wrapper from './Wrapper';
-import { clearMessage } from '../../store/reducers/globalReducer';
-import { useGetQuery } from '../../store/services/categoryService';
+import { clearMessage, setSuccess } from '../../store/reducers/globalReducer';
+import {
+  useDeleteCategoryMutation,
+  useGetQuery,
+} from '../../store/services/categoryService';
 import Spinner from '../../components/Spinner';
 import Pagination from '../../components/Pagination';
 
@@ -17,6 +20,17 @@ const Categories = () => {
   const { success } = useSelector((state) => state.globalReducer);
   const dispatch = useDispatch();
   const { data = [], isFetching } = useGetQuery(page);
+  const [removeCategory, response] = useDeleteCategoryMutation();
+  const deleteCategoryHandler = (id) => {
+    if (window.confirm('Are you really want to delete?')) {
+      removeCategory(id);
+    }
+  };
+  useEffect(() => {
+    if (response?.isSuccess) {
+      dispatch(setSuccess(response?.data?.message));
+    }
+  }, [response?.data?.message]);
 
   useEffect(() => {
     return () => {
@@ -64,7 +78,12 @@ const Categories = () => {
                         </Link>
                       </td>
                       <td className="p-3 capitalize text-sm font-normal text-gray-400">
-                        <button>delete</button>
+                        <button
+                          className="btn btn-danger"
+                          onClick={() => deleteCategoryHandler(category._id)}
+                        >
+                          delete
+                        </button>
                       </td>
                     </tr>
                   ))}

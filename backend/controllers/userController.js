@@ -58,13 +58,13 @@ module.exports.login = async (req, res) => {
             return res.status(201).json({ token, isAdmin: false });
           }
         } else {
-          return res.status(401).json({
+          return res.status(400).json({
             errors: [{ msg: 'password not matched!', param: 'password' }],
           });
         }
       } else {
         return res
-          .status(401)
+          .status(400)
           .json({ errors: [{ msg: `${email} is not found!` }] });
       }
     } catch (error) {
@@ -72,6 +72,6 @@ module.exports.login = async (req, res) => {
     }
   } else {
     //validations failed
-    return res.status(401).json({ errors: errors.array() });
+    return res.status(400).json({ errors: errors.array() });
   }
 };
