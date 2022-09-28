@@ -20,4 +20,7 @@
   .right-heading {
     @apply mb-2 text-gray-400 font-medium;
   }
+  .input-file {
+    @apply block file:py-2 file:px-2 file:rounded file:cursor-pointer file:bg-indigo-600 file:text-white file:font-medium file:mr-4;
+  }
 }
