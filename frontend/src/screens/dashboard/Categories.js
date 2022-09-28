@@ -30,6 +30,7 @@ const Categories = () => {
     if (response?.isSuccess) {
       dispatch(setSuccess(response?.data?.message));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response?.data?.message]);
 
   useEffect(() => {
