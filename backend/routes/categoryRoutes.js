@@ -18,4 +18,10 @@ router.get(
   Category.fetchCategory
 );
 
+router.put(
+  '/update-category/:id',
+  [categoryValidations, Authorization.authorized],
+  Category.updateCategory
+);
+
 module.exports = router;
