@@ -1,9 +1,7 @@
 const Colors = ({ colors, remove }) => {
   return (
     <div>
-      {colors.length > 0 && (
-        <h1 className="text-gray-400 text-medium">Colors List</h1>
-      )}
+      {colors.length > 0 && <h1 className="right-heading">Colors List</h1>}
       {colors.length > 0 && (
         <div className="flex flex-wrap">
           {colors.map((color) => (

@@ -8,6 +8,7 @@ import Wrapper from './Wrapper';
 import { TwitterPicker } from 'react-color';
 import { v4 as uuidv4 } from 'uuid';
 import Colors from '../../components/Color';
+import SizesList from '../../components/SizesList';
 
 const CreateProduct = () => {
   const { data = [], isFetching } = useAllCategoriesQuery();
@@ -19,6 +20,13 @@ const CreateProduct = () => {
     category: '',
     colors: [],
   });
+  const [sizes] = useState([
+    { name: 'S' },
+    { name: 'M' },
+    { name: 'L' },
+    { name: 'XL' },
+  ]);
+  const [sizeList, setSizeList] = useState([]);
   const inputHandler = (e) => {
     setState({ ...state, [e.target.name]: e.target.value });
   };
@@ -32,6 +40,14 @@ const CreateProduct = () => {
   const removeColorsHanlder = (color) => {
     const filtered = state.colors.filter((clr) => clr.color !== color.color);
     setState({ ...state, colors: filtered });
+  };
+  const chooseSizeHandler = (sizeObject) => {
+    const filtered = sizeList.filter((size) => size.name !== sizeObject.name);
+    setSizeList([...filtered, sizeObject]);
+  };
+  const removeSizeHandler = (name) => {
+    const filtered = sizeList.filter((size) => size.name !== name);
+    setSizeList(filtered);
   };
   return (
     <Wrapper>
@@ -126,10 +142,29 @@ const CreateProduct = () => {
               </label>
               <TwitterPicker onChangeComplete={saveColorsHandler} />
             </div>
+            <div className="w-full md:w-6/12 p-3">
+              <label htmlFor="sizes" className="label">
+                Choose Sizes
+              </label>
+              {sizes.length > 0 && (
+                <div className="flex flex-wrap -mx-3">
+                  {sizes.map((size) => (
+                    <div
+                      key={size.name}
+                      className="size"
+                      onClick={() => chooseSizeHandler(size)}
+                    >
+                      {size.name}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         </div>
         <div className="w-full xl:w-4/12 p-3 mt-3">
           <Colors colors={state.colors} remove={removeColorsHanlder} />
+          <SizesList list={sizeList} removeSize={removeSizeHandler} />
         </div>
       </div>
     </Wrapper>
