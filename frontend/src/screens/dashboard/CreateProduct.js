@@ -33,6 +33,7 @@ const CreateProduct = () => {
     { name: 'M' },
     { name: 'L' },
     { name: 'XL' },
+    { name: 'Free Size' },
   ]);
   const [sizeList, setSizeList] = useState([]);
   const [preview, setPreview] = useState({
