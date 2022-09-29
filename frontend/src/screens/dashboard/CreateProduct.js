@@ -10,9 +10,12 @@ import { v4 as uuidv4 } from 'uuid';
 import Colors from '../../components/Color';
 import SizesList from '../../components/SizesList';
 import ImagePreview from '../../components/ImagesPreview';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 const CreateProduct = () => {
   const { data = [], isFetching } = useAllCategoriesQuery();
+  const [value, setValue] = useState('');
   const [state, setState] = useState({
     title: '',
     price: 0,
@@ -214,6 +217,25 @@ const CreateProduct = () => {
                 id="image3"
                 className="input-file"
                 onChange={imageHandler}
+              />
+            </div>
+            <div className="w-full p-3">
+              <label htmlFor="description" className="label">
+                Description
+              </label>
+              <ReactQuill
+                theme="snow"
+                id="description"
+                value={value}
+                onChange={setValue}
+                placeholder="Enter description.."
+              />
+            </div>
+            <div className="w-full p-3">
+              <input
+                type="submit"
+                value="save product"
+                className="btn btn-indigo"
               />
             </div>
           </div>
