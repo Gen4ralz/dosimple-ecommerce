@@ -1,6 +1,6 @@
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import ScreenHeader from '../../components/ScreenHeader';
 import Spinner from '../../components/Spinner';
 import { useAllCategoriesQuery } from '../../store/services/categoryService';
@@ -13,8 +13,13 @@ import ImagePreview from '../../components/ImagesPreview';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useCreateProductMutation } from '../../store/services/productService';
+import toast, { Toaster } from 'react-hot-toast';
+import { useDispatch } from 'react-redux';
+import { setSuccess } from '../../store/reducers/globalReducer';
 
 const CreateProduct = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { data = [], isFetching } = useAllCategoriesQuery();
   const [value, setValue] = useState('');
   const [state, setState] = useState({
@@ -88,6 +93,23 @@ const CreateProduct = () => {
     createNewProduct(formData);
   };
 
+  useEffect(() => {
+    if (!response.isSuccess) {
+      response?.error?.data?.errors.map((err) => {
+        return toast.error(err.msg);
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [response?.error?.data?.errors]);
+
+  useEffect(() => {
+    if (response?.isSuccess) {
+      dispatch(setSuccess(response?.data?.msg));
+      navigate('/dashboard/products');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [response?.isSuccess]);
+
   return (
     <Wrapper>
       <ScreenHeader>
@@ -95,6 +117,7 @@ const CreateProduct = () => {
           <ArrowLeftIcon className="w-5 h-5 inline-block mr-2" /> Products List
         </Link>
       </ScreenHeader>
+      <Toaster position="top-center" reverseOrder={true} />
       <div className="flex felx-wrap -mx-3">
         <form className="w-full xl:w-8/12 p-3" onSubmit={submitHandler}>
           <div className="flex flex-wrap">
@@ -250,7 +273,8 @@ const CreateProduct = () => {
             <div className="w-full p-3">
               <input
                 type="submit"
-                value="save product"
+                value={response.isLoading ? 'loading...' : 'save product'}
+                disabled={response.isLoading ? true : false}
                 className="btn btn-indigo"
               />
             </div>
