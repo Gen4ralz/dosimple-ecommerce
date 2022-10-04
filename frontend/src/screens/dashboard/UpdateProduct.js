@@ -12,8 +12,8 @@ import SizesList from '../../components/SizesList';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import {
-  useCreateProductMutation,
   useGetProductQuery,
+  useUpdateProductMutation,
 } from '../../store/services/productService';
 import toast, { Toaster } from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
@@ -66,15 +66,11 @@ const UpdateProduct = () => {
     setSizeList(filtered);
   };
 
-  const [createNewProduct, response] = useCreateProductMutation();
+  const [updateProduct, response] = useUpdateProductMutation();
 
   const submitHandler = (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append('data', JSON.stringify(state));
-    formData.append('sizes', JSON.stringify(sizeList));
-    formData.append('description', value);
-    createNewProduct(formData);
+    updateProduct(state);
   };
 
   useEffect(() => {
