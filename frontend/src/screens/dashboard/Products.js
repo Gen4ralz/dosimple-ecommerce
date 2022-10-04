@@ -7,7 +7,10 @@ import Pagination from '../../components/Pagination';
 import ScreenHeader from '../../components/ScreenHeader';
 import Spinner from '../../components/Spinner';
 import { clearMessage } from '../../store/reducers/globalReducer';
-import { useGetProductsQuery } from '../../store/services/productService';
+import {
+  useDeleteProductMutation,
+  useGetProductsQuery,
+} from '../../store/services/productService';
 import Wrapper from './Wrapper';
 
 const Products = () => {
@@ -28,7 +31,13 @@ const Products = () => {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const deleteProductHandler = async () => {};
+
+  const [deleteProduct, response] = useDeleteProductMutation();
+  const deleteProductHandler = async (id) => {
+    if (window.confirm('Are you want to delete this product?')) {
+      deleteProduct(id);
+    }
+  };
   return (
     <Wrapper>
       <ScreenHeader>
@@ -84,12 +93,12 @@ const Products = () => {
                       </Link>
                     </td>
                     <td className="p-3 capitalize text-sm font-normal text-gray-400">
-                      <button
+                      <span
                         className="btn btn-danger"
                         onClick={() => deleteProductHandler(product._id)}
                       >
                         delete
-                      </button>
+                      </span>
                     </td>
                   </tr>
                 ))}

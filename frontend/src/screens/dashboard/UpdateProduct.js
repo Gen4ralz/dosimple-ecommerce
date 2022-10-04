@@ -18,6 +18,7 @@ import {
 import toast, { Toaster } from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
 import { setSuccess } from '../../store/reducers/globalReducer';
+import parser from 'html-react-parser';
 
 const UpdateProduct = () => {
   const { id } = useParams();
@@ -83,6 +84,11 @@ const UpdateProduct = () => {
   }, [response?.error?.data?.errors]);
 
   useEffect(() => {
+    setState({ ...state, description: value });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value]);
+
+  useEffect(() => {
     if (response?.isSuccess) {
       dispatch(setSuccess(response?.data?.msg));
       navigate('/dashboard/products');
@@ -94,7 +100,7 @@ const UpdateProduct = () => {
     if (!fetching) {
       setState(product);
       setSizeList(product.sizes);
-      setValue(product.description);
+      setValue(parser(product.description));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product]);
