@@ -6,6 +6,8 @@ import CreateProduct from '../screens/dashboard/CreateProduct';
 import Products from '../screens/dashboard/Products';
 import UpdateCategory from '../screens/dashboard/UpdateCategory';
 import UpdateProduct from '../screens/dashboard/UpdateProduct';
+import Login from '../screens/home/auth/Login';
+import Register from '../screens/home/auth/Register';
 import Home from '../screens/home/Home';
 import Private from './Private';
 import Public from './Public';
@@ -15,6 +17,8 @@ const Routing = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
         <Route path="auth">
           <Route
             path="admin-login"

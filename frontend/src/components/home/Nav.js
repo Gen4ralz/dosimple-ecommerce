@@ -15,17 +15,17 @@ const Nav = () => {
           </Link>
           <ul className="flex items-center">
             <li className="nav-li">
-              <MagnifyingGlassIcon className="w-8 h-8" />
+              <MagnifyingGlassIcon className="w-8 h-8 text-white" />
             </li>
             <li className="nav-li">
               <Link to="/login">
-                <UserIcon className="h-8 w-8" />
+                <UserIcon className="h-8 w-8 text-white" />
               </Link>
             </li>
             <li className="nav-li relative">
               <Link to="/cart">
-                <ShoppingBagIcon className="w-8 h-8" />
-                <span className='nav-circle'>10</span>
+                <ShoppingBagIcon className="w-8 h-8 text-white" />
+                <span className="nav-circle">10</span>
               </Link>
             </li>
           </ul>

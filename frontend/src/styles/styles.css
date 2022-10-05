@@ -28,3 +28,11 @@
 .my-container {
   @apply max-w-screen-xl w-full mx-auto px-6;
 }
+
+.flex-vertical {
+  @apply flex items-center;
+}
+
+.heading {
+  @apply text-lg capitalize font-medium;
+}
