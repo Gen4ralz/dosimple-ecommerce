@@ -16,7 +16,7 @@ const Login = () => {
             transition={{ delay: 0.5 }}
             className="w-full sm:w-10/12 md:w-8/12 lg:w-6/12 xl:w-4/12 p-6"
           >
-            <form className="bg-white rounded-lg -mt-15 border border-gray-200 p-5">
+            <form className="bg-white rounded-lg -mt-20 border border-gray-200 p-5">
               <h1 className="heading mb-5">Sign In</h1>
               <div className="mb-4">
                 <label htmlFor="email" className="form-label">
