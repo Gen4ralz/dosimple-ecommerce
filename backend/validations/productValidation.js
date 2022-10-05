@@ -18,10 +18,10 @@ module.exports = [
     .escape(),
   body('discount')
     .custom((value) => {
-      if (parseInt(value) < 0) {
+      if (value < 0) {
         throw new Error('Discount must not be negative');
       } else {
-        return parseInt(value);
+        return value;
       }
     })
     .trim()
@@ -41,9 +41,9 @@ module.exports = [
   body('stock')
     .custom((value) => {
       if (parseInt(value) < 0) {
-        throw new Error('Stock must be above 20');
+        throw new Error('Stock must not be negative');
       } else {
-        return parsInt(value);
+        return parseInt(value);
       }
     })
     .trim()

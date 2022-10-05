@@ -157,8 +157,9 @@ class Product {
             },
           }
         );
-        return res.status(200).json({ msg: 'Product has updated!', response });
+        return res.status(200).json({ msg: 'Product has updated', response });
       } catch (error) {
+        console.log(error);
         return res.status(500).json({ errors: error });
       }
     } else {

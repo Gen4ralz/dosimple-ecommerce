@@ -68,8 +68,8 @@ const productService = createApi({
 export const {
   useCreateProductMutation,
   useUpdateProductMutation,
+  useDeleteProductMutation,
   useGetProductsQuery,
   useGetProductQuery,
-  useDeleteProductMutation,
 } = productService;
 export default productService;

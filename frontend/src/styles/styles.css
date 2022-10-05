@@ -25,3 +25,6 @@
 .ql-container.ql-snow {
   @apply border-none bg-gray-700;
 }
+.my-container {
+  @apply max-w-screen-xl w-full mx-auto px-6;
+}

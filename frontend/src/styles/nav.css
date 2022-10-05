@@ -1,0 +1,11 @@
+.nav {
+  @apply w-full h-[70px] flex items-center shadow-sm fixed top-0 right-0 left-0;
+}
+
+.nav-li {
+  @apply ml-8 cursor-pointer;
+}
+
+.nav-circle {
+  @apply flex w-8 h-8 rounded-full bg-indigo-700 text-xs items-center justify-center text-white absolute -top-2 -right-4;
+}

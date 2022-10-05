@@ -32,7 +32,7 @@ const Products = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const [deleteProduct, response] = useDeleteProductMutation();
+  const [deleteProduct] = useDeleteProductMutation();
   const deleteProductHandler = async (id) => {
     if (window.confirm('Are you want to delete this product?')) {
       deleteProduct(id);
