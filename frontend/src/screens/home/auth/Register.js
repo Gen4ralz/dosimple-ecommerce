@@ -132,8 +132,9 @@ const Register = () => {
               <div className="mb-4">
                 <input
                   type="submit"
-                  value="sign up"
+                  value={`${response.isLoading ? 'Loading...' : 'sign up'}`}
                   className="btn btn-indigo w-full"
+                  disabled={response.isLoading ? true : false}
                 />
               </div>
               <div>

@@ -27,11 +27,9 @@ module.exports.register = async (req, res) => {
           .status(201)
           .json({ msg: 'Your account has been created!', token });
       } else {
-        return res
-          .status(400)
-          .json({
-            errors: [{ msg: `${email} is already taken`, param: 'email' }],
-          });
+        return res.status(400).json({
+          errors: [{ msg: `${email} is already taken`, param: 'email' }],
+        });
       }
     } catch (error) {
       return res.status(500).json('Server internal error!');
@@ -67,7 +65,9 @@ module.exports.login = async (req, res) => {
       } else {
         return res
           .status(400)
-          .json({ errors: [{ msg: `${email} is not found!` }] });
+          .json({
+            errors: [{ msg: `${email} is not found!`, param: 'email' }],
+          });
       }
     } catch (error) {
       return res.status(500).json('Server internal error!');

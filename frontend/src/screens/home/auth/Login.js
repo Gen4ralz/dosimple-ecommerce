@@ -1,9 +1,51 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Nav from '../../../components/home/Nav';
 import Header from '../Header';
 import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import { useUserLoginMutation } from '../../../store/services/authService';
+import { useDispatch } from 'react-redux';
+import { setUserToken } from '../../../store/reducers/authReducer';
 
 const Login = () => {
+  const navigate = useNavigate();
+  const [errors, setErrors] = useState([]);
+  const [state, setState] = useState({
+    email: '',
+    password: '',
+  });
+  const changeHandler = (e) => {
+    setState({ ...state, [e.target.name]: e.target.value });
+  };
+  const [loginUser, response] = useUserLoginMutation();
+  const submitHandler = (e) => {
+    e.preventDefault();
+    loginUser(state);
+  };
+  useEffect(() => {
+    if (response.isError) {
+      setErrors(response?.error?.data?.errors);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [response?.error?.data]);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (response.isSuccess) {
+      localStorage.setItem('userToken', response?.data?.token);
+      dispatch(setUserToken(response?.data?.token));
+      navigate('/user');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [response.isSuccess]);
+  const showError = (name) => {
+    const exist = errors.find((err) => err.param === name);
+    if (exist) {
+      return exist.msg;
+    } else {
+      return false;
+    }
+  };
   return (
     <>
       <Nav />
@@ -16,7 +58,10 @@ const Login = () => {
             transition={{ delay: 0.5 }}
             className="w-full sm:w-10/12 md:w-8/12 lg:w-6/12 xl:w-4/12 p-6"
           >
-            <form className="bg-white rounded-lg -mt-20 border border-gray-200 p-5">
+            <form
+              className="bg-white rounded-lg -mt-20 border border-gray-200 p-5"
+              onSubmit={submitHandler}
+            >
               <h1 className="heading mb-5">Sign In</h1>
               <div className="mb-4">
                 <label htmlFor="email" className="form-label">
@@ -26,8 +71,17 @@ const Login = () => {
                   type="email"
                   name="email"
                   id="email"
-                  className="form-input"
+                  className={`form-input ${
+                    showError('email')
+                      ? 'border-rose-600 bg-rose-50'
+                      : 'border- gray - 300'
+                  }`}
+                  value={state.email}
+                  onChange={changeHandler}
                 />
+                {showError('email') && (
+                  <span className="error">{showError('email')}</span>
+                )}
               </div>
               <div className="mb-4">
                 <label htmlFor="password" className="form-label">
@@ -37,14 +91,24 @@ const Login = () => {
                   type="password"
                   name="password"
                   id="password"
-                  className="form-input"
+                  className={`form-input ${
+                    showError('password')
+                      ? 'border-rose-600 bg-rose-50'
+                      : 'border- gray - 300'
+                  }`}
+                  value={state.password}
+                  onChange={changeHandler}
                 />
+                {showError('password') && (
+                  <span className="error">{showError('password')}</span>
+                )}
               </div>
               <div className="mb-4">
                 <input
                   type="submit"
-                  value="sign in"
+                  value={`${response.isLoading ? 'Loading...' : 'sign in'}`}
                   className="btn btn-indigo w-full"
+                  disabled={response.isLoading ? true : false}
                 />
               </div>
               <div>
