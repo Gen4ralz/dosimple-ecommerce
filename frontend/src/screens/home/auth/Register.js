@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import Nav from '../../../components/home/Nav';
-import Header from '../Header';
+
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { useUserRegisterMutation } from '../../../store/services/authService';
@@ -9,6 +9,7 @@ import { setUserToken } from '../../../store/reducers/authReducer';
 import { setSuccess } from '../../../store/reducers/globalReducer';
 import { useForm } from '../../../hooks/Form';
 import { showError } from '../../../utils/ShowError';
+import Header from '../../../components/home/Header';
 
 const Register = () => {
   const navigate = useNavigate();

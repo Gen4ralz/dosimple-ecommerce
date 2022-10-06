@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 const AdminNav = ({ openSidebar }) => {
   const dispatch = useDispatch();
   const logoutHandler = () => {
-    dispatch(logout());
+    dispatch(logout('admin-token'));
   };
   return (
     <nav className="fixed left-0 sm:left-56 top-0 right-0 mx-4">

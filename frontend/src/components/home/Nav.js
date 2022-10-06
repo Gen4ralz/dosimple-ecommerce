@@ -4,8 +4,10 @@ import {
   UserIcon,
 } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const Nav = () => {
+  const { userToken, user } = useSelector((state) => state.authReducer);
   return (
     <nav className="nav">
       <div className="my-container">
@@ -17,11 +19,17 @@ const Nav = () => {
             <li className="nav-li">
               <MagnifyingGlassIcon className="w-8 h-8 text-white" />
             </li>
-            <li className="nav-li">
-              <Link to="/login">
-                <UserIcon className="h-8 w-8 text-white" />
-              </Link>
-            </li>
+            {userToken ? (
+              <li className="nav-li text-white font-bold">
+                <Link to="/user">{user?.name}</Link>
+              </li>
+            ) : (
+              <li className="nav-li">
+                <Link to="/login">
+                  <UserIcon className="h-8 w-8 text-white" />
+                </Link>
+              </li>
+            )}
             <li className="nav-li relative">
               <Link to="/cart">
                 <ShoppingBagIcon className="w-8 h-8 text-white" />
