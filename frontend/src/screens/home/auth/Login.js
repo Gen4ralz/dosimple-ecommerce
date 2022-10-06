@@ -6,17 +6,17 @@ import { useEffect, useState } from 'react';
 import { useUserLoginMutation } from '../../../store/services/authService';
 import { useDispatch } from 'react-redux';
 import { setUserToken } from '../../../store/reducers/authReducer';
+import { useForm } from '../../../hooks/Form';
+import { showError } from '../../../utils/ShowError';
 
 const Login = () => {
   const navigate = useNavigate();
   const [errors, setErrors] = useState([]);
-  const [state, setState] = useState({
+  const { state, onChange } = useForm({
     email: '',
     password: '',
   });
-  const changeHandler = (e) => {
-    setState({ ...state, [e.target.name]: e.target.value });
-  };
+
   const [loginUser, response] = useUserLoginMutation();
   const submitHandler = (e) => {
     e.preventDefault();
@@ -38,14 +38,7 @@ const Login = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response.isSuccess]);
-  const showError = (name) => {
-    const exist = errors.find((err) => err.param === name);
-    if (exist) {
-      return exist.msg;
-    } else {
-      return false;
-    }
-  };
+
   return (
     <>
       <Nav />
@@ -72,15 +65,15 @@ const Login = () => {
                   name="email"
                   id="email"
                   className={`form-input ${
-                    showError('email')
+                    showError(errors, 'email')
                       ? 'border-rose-600 bg-rose-50'
                       : 'border- gray - 300'
                   }`}
                   value={state.email}
-                  onChange={changeHandler}
+                  onChange={onChange}
                 />
-                {showError('email') && (
-                  <span className="error">{showError('email')}</span>
+                {showError(errors, 'email') && (
+                  <span className="error">{showError(errors, 'email')}</span>
                 )}
               </div>
               <div className="mb-4">
@@ -92,15 +85,15 @@ const Login = () => {
                   name="password"
                   id="password"
                   className={`form-input ${
-                    showError('password')
+                    showError(errors, 'password')
                       ? 'border-rose-600 bg-rose-50'
                       : 'border- gray - 300'
                   }`}
                   value={state.password}
-                  onChange={changeHandler}
+                  onChange={onChange}
                 />
-                {showError('password') && (
-                  <span className="error">{showError('password')}</span>
+                {showError(errors, 'password') && (
+                  <span className="error">{showError(errors, 'password')}</span>
                 )}
               </div>
               <div className="mb-4">
