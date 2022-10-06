@@ -10,7 +10,7 @@ const Dashboard = () => {
       <Nav />
       <div className="mt-[70px]">
         <Header>my account</Header>
-        <div className="my-container mt-[80px]">
+        <div className="my-container mt-[40px]">
           <div className="flex felx-wrap -mx-6">
             <div className="w-full p-6 md:w-4/12">
               <AccountList />
