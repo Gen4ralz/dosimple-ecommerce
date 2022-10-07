@@ -2,13 +2,25 @@ import { Link } from 'react-router-dom';
 import { Virtual } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { useAllCategoriesQuery } from '../../store/services/categoryService';
-import Spinner from '../Spinner';
+import Skeleton from '../skeleton/Skeleton';
+import Thumbnail from '../skeleton/Thumbnail';
 
 const Categories = () => {
   const { data, isFetching } = useAllCategoriesQuery();
   let i = 1;
   return isFetching ? (
-    <Spinner />
+    <div className="flex flex-wrap -mx-4 mb-10">
+      {[1, 2, 3, 4, 5, 6].map((item) => (
+        <div
+          className="w-6/12 sm:w-4/12 md:w-3/12 p-4 lg:w-[20%] xl:w-2/12"
+          key={item}
+        >
+          <Skeleton>
+            <Thumbnail />
+          </Skeleton>
+        </div>
+      ))}
+    </div>
   ) : (
     data?.categories.length > 0 && (
       <Swiper
@@ -37,7 +49,7 @@ const Categories = () => {
               virtualIndex={index}
               className="w-full overflow-hidden rounded-lg relative"
             >
-              <div className="h-[150px]">
+              <div className="w-full h-[150px]">
                 <img
                   src={`./images/slider/${i}.jpg`}
                   className="w-full h-full object-cover"
