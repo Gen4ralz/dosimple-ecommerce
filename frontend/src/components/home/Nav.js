@@ -13,7 +13,7 @@ const Nav = () => {
       <div className="my-container">
         <div className="flex justify-between  items-center">
           <Link to="/">
-            <img src="./logo.svg" alt="logo" width={100} height={100} />
+            <img src="/logo.svg" alt="logo" width={100} height={100} />
           </Link>
           <ul className="flex items-center">
             <li className="nav-li">

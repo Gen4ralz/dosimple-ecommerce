@@ -1,4 +1,6 @@
 const express = require('express');
+const HomeProducts = require('../controllers/HomeProducts');
+const { catProducts } = require('../controllers/HomeProducts');
 const Product = require('../controllers/productController');
 const Authorization = require('../services/Authorization');
 const productValidation = require('../validations/productValidation');
@@ -13,5 +15,6 @@ router.put(
   Product.updateProduct
 );
 router.delete('/delete/:id', Authorization.authorized, Product.deleteProduct);
+router.get('/cat-products/:name/:page', HomeProducts.catProducts);
 
 module.exports = router;

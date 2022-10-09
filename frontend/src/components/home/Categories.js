@@ -57,7 +57,10 @@ const Categories = () => {
                 />
               </div>
               <div className="absolute inset-0 w-full h-full bg-black/50 flex items-center justify-center p-4">
-                <Link to="/" className="text-white font-medium capitalize">
+                <Link
+                  to={`/cat-products/${category.name}`}
+                  className="text-white font-medium capitalize"
+                >
                   {category.name}
                 </Link>
               </div>
