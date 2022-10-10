@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
-import { ArrowUturnLeftIcon } from '@heroicons/react/24/outline';
-import { ArrowUturnRightIcon } from '@heroicons/react/24/outline';
+import { ArrowUturnLeftIcon } from '@heroicons/react/24/solid';
+import { ArrowUturnRightIcon } from '@heroicons/react/24/solid';
 
-const Pagination = ({ page, count, perPage, path }) => {
+const Pagination = ({ page, count, perPage, path, theme }) => {
   const totalLinks = Math.ceil(count / perPage);
   let startLoop = page;
   let diff = totalLinks - page;
@@ -19,9 +19,9 @@ const Pagination = ({ page, count, perPage, path }) => {
       allLinks.push(
         <li key={i}>
           <Link
-            className={`pagination-link ${
-              page === i && 'bg-gray-400 text-gray-900'
-            }`}
+            className={`${
+              theme === 'light' ? 'pagination-link-light' : 'pagination-link'
+            } ${page === i && 'bg-indigo-600 text-white'}`}
             to={`/${path}/${i}`}
           >
             {i}
@@ -34,8 +34,13 @@ const Pagination = ({ page, count, perPage, path }) => {
     if (page < totalLinks) {
       return (
         <li>
-          <Link className="pagination-link" to={`/${path}/${page + 1}`}>
-            <ArrowUturnRightIcon className="w-5 h-5 inline-block ml-2" />
+          <Link
+            className={`${
+              theme === 'light' ? 'pagination-link-light' : 'pagination-link'
+            }`}
+            to={`/${path}/${page + 1}`}
+          >
+            <ArrowUturnRightIcon className="w-4 h-4 inline-block pb-1" />
           </Link>
         </li>
       );
@@ -45,8 +50,13 @@ const Pagination = ({ page, count, perPage, path }) => {
     if (page > 1) {
       return (
         <li>
-          <Link className="pagination-link" to={`/${path}/${page - 1}`}>
-            <ArrowUturnLeftIcon className="w-5 h-5 inline-block ml-2" />
+          <Link
+            className={`${
+              theme === 'light' ? 'pagination-link-light' : 'pagination-link'
+            }`}
+            to={`/${path}/${page - 1}`}
+          >
+            <ArrowUturnLeftIcon className="w-4 h-4 inline-block pb-1" />
           </Link>
         </li>
       );

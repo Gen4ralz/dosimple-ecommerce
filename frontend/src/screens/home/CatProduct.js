@@ -1,6 +1,8 @@
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Header from '../../components/home/Header';
 import Nav from '../../components/home/Nav';
+import ProductCard from '../../components/home/ProductCard';
+import Pagination from '../../components/Pagination';
 import Skeleton from '../../components/skeleton/Skeleton';
 import Text from '../../components/skeleton/Text';
 import Thumbnail from '../../components/skeleton/Thumbnail';
@@ -12,7 +14,6 @@ const CatProduct = () => {
     name,
     page: parseInt(page),
   });
-  console.log(data);
   return (
     <>
       <Nav />
@@ -31,7 +32,7 @@ const CatProduct = () => {
                   key={item}
                 >
                   <Skeleton>
-                    <Thumbnail />
+                    <Thumbnail height="320px" />
                     <Text mt="10px" />
                     <Text mt="10px" />
                   </Skeleton>
@@ -46,38 +47,16 @@ const CatProduct = () => {
             </p>
             <div className="flex flex-wrap -mx-5">
               {data.products.map((product) => {
-                const percentage = product.discount / 100;
-                const discountPrice =
-                  product.price - product.price * percentage;
-                return (
-                  <div
-                    className="w-full md:w-3/12 sm:w-6/12 px-5 py-10"
-                    key={product._id}
-                  >
-                    <Link to="/">
-                      <div className="w-full">
-                        <img
-                          src={`/images/${product.image1}`}
-                          alt="products"
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                      <p className="capitalize text-base font-medium my-3">
-                        {product.title}
-                      </p>
-                      <div className="flex justify-between">
-                        <span className="font-bold text-red-700">
-                          {discountPrice} ฿
-                        </span>
-                        <span className="font-bold text-gray-400 line-through">
-                          {product.price} ฿
-                        </span>
-                      </div>
-                    </Link>
-                  </div>
-                );
+                return <ProductCard product={product} key={product._id} />;
               })}
             </div>
+            <Pagination
+              page={parseInt(page)}
+              perPage={data.perPage}
+              count={data.count}
+              path={`cat-products/${name}`}
+              theme="light"
+            />
           </>
         ) : (
           <div className="alert-danger">No products found in ${name}</div>
