@@ -2,6 +2,7 @@ import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import { Link, useParams } from 'react-router-dom';
 import DetailsCard from '../../components/home/DetailsCard';
 import Nav from '../../components/home/Nav';
+import ProductLoader from '../../components/home/ProductLoader';
 import { useGetProductQuery } from '../../store/services/productService';
 
 const Product = () => {
@@ -12,7 +13,7 @@ const Product = () => {
       <Nav />
       <div className="my-container mt-24">
         {isFetching ? (
-          'loading'
+          <ProductLoader />
         ) : (
           <>
             <ul className="flex items-center">

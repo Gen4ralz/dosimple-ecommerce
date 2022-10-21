@@ -1,33 +1,22 @@
+import parser from 'html-react-parser';
+import htmlFormat from 'html-to-formatted-text';
+import DetailsImage from './DetailsImage';
+import Quantity from './Quantity';
+
 const DetailsCard = ({ product }) => {
   const discountPrice = product.price - product.discount;
+  let desc = parser(product.description);
+  desc = htmlFormat(desc);
   return (
     <div className="flex flex-wrap -mx-5">
-      <div className="w-full sm:w-6/12 p-5">
+      <div className="w-full order-2 md:order-1 md:w-6/12 p-5">
         <div className="flex flex-wrap">
-          <div className="w-full sm:w-6/12 p-1">
-            <img
-              src={`/images/${product.image1}`}
-              alt="image1"
-              className="w-full h-auto object-cover"
-            />
-          </div>
-          <div className="w-full sm:w-6/12 p-1">
-            <img
-              src={`/images/${product.image2}`}
-              alt="image2"
-              className="w-full h-auto object-cover"
-            />
-          </div>
-          <div className="w-full sm:w-6/12 p-1">
-            <img
-              src={`/images/${product.image3}`}
-              alt="image3"
-              className="w-full h-auto object-cover"
-            />
-          </div>
+          <DetailsImage image={product.image1} />
+          <DetailsImage image={product.image2} />
+          <DetailsImage image={product.image3} />
         </div>
       </div>
-      <div className="w-full sm:w-6/12 p-5">
+      <div className="w-full order-1 md:order-2 sm:w-6/12 p-5">
         <h1 className="text-xl font-bold text-gray-800 capitalize">
           {product.title}
         </h1>
@@ -47,7 +36,7 @@ const DetailsCard = ({ product }) => {
             <div className="flex flex-wra -mx-1">
               {product.sizes.map((size) => (
                 <div
-                  className="p-1 ml-1 border border-gray-300 rounded"
+                  className="p-1 ml-1 border border-gray-300 rounded mb-2"
                   key={size.name}
                 >
                   <span className="text-sm uppercase text-gray-900 font-semibold">
@@ -60,7 +49,7 @@ const DetailsCard = ({ product }) => {
         )}
         {product.colors.length > 0 && (
           <>
-            <h3 className="text-base font-medium capitalize text-gray-600 mb-2">
+            <h3 className="text-base font-medium capitalize text-gray-600 py-2">
               colors
             </h3>
             <div className="flex flex-wrap -mx-1">
@@ -73,17 +62,25 @@ const DetailsCard = ({ product }) => {
                     className="min-w-[40px]  min-h-[40px] rounded block"
                     style={{ backgroundColor: color.color }}
                   >
-                    S
+                    {color.name}
                   </span>
                 </div>
               ))}
             </div>
           </>
         )}
-        <h3 className="text-base font-medium capitalize text-gray-600 mb-2">
+        <div className="flex -mx-3">
+          <div className="w-full sm:w-6/12 p-3">
+            <Quantity />
+          </div>
+          <div className="w-full sm:w-6/12 p-3">
+            <button className="btn btn-indigo">add to cart</button>
+          </div>
+        </div>
+        <h3 className="mt-4 text-base font-medium capitalize text-gray-600 mb-2">
           description
         </h3>
-        <p>{product.description}</p>
+        <p className="mt-4 leading-[27px]">{desc}</p>
       </div>
     </div>
   );
