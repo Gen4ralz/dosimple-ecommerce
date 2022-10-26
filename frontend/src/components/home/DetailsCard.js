@@ -1,9 +1,19 @@
 import parser from 'html-react-parser';
 import htmlFormat from 'html-to-formatted-text';
+import { useState } from 'react';
 import DetailsImage from './DetailsImage';
 import Quantity from './Quantity';
 
 const DetailsCard = ({ product }) => {
+  const [quantity, setQuantity] = useState(1);
+  const inc = () => {
+    setQuantity(quantity + 1);
+  };
+  const dec = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+    }
+  };
   const discountPrice = product.price - product.discount;
   let desc = parser(product.description);
   desc = htmlFormat(desc);
@@ -71,7 +81,7 @@ const DetailsCard = ({ product }) => {
         )}
         <div className="flex -mx-3">
           <div className="w-full sm:w-6/12 p-3">
-            <Quantity />
+            <Quantity quantity={quantity} inc={inc} dec={dec} />
           </div>
           <div className="w-full sm:w-6/12 p-3">
             <button className="btn btn-indigo">add to cart</button>
@@ -80,7 +90,7 @@ const DetailsCard = ({ product }) => {
         <h3 className="mt-4 text-base font-medium capitalize text-gray-600 mb-2">
           description
         </h3>
-        <p className="mt-4 leading-[27px]">{desc}</p>
+        <div className="mt-4 leading-[27px] description">{desc}</div>
       </div>
     </div>
   );
